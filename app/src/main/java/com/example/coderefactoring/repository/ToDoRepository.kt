@@ -17,12 +17,7 @@ class ToDoRepository(
         if (forceUpdate) {
             val remote = api.getRemoteTodos()
             for (r in remote) {
-                if (r.id != 0) dao.insert(r)
-                else dao.insert(r) // redundant
-            }
-        } else {
-            dao.getAll().collect { list ->
-                list.forEach { dao.update(it) } // nonexistent update method: Dead Code risk
+                dao.insert(r)
             }
         }
     }
