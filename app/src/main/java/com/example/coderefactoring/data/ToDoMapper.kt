@@ -3,13 +3,7 @@ package com.example.coderefactoring.data
 import com.example.coderefactoring.data.model.ToDo
 
 
-interface BaseEntity {          // 🔴 Speculative Generality
-    fun toMap(): Map<String, Any>
-}
-
 object ToDoMapper {
-
-    fun entityToModel(e: ToDo): ToDo = e.copy()
 
     fun entityToMap(e: ToDo): Map<String, Any> = mapOf(
         "id" to e.id,
