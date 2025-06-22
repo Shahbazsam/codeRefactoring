@@ -8,12 +8,13 @@ interface BaseEntity {          // 🔴 Speculative Generality
 }
 
 object ToDoMapper {
-    fun entityToModel(e: ToDo): ToDo = ToDo(e.id, e.dataString, e.done, e.dueDate, e.priority)
-    fun dtoToEntity(m: ToDo): ToDo = ToDo(m.id, m.dataString, m.done, m.dueDate, m.priority)
-    fun entityToMap(e: ToDo): Map<String, Any> = mapOf(   // 🔴 Message Chains
+
+    fun entityToModel(e: ToDo): ToDo = e.copy()
+
+    fun entityToMap(e: ToDo): Map<String, Any> = mapOf(
         "id" to e.id,
-        "data" to e.dataString,
-        "done" to e.done,
+        "title" to e.title,
+        "isCompleted" to e.isCompleted,
         "date" to e.dueDate,
         "priority" to e.priority
     )
