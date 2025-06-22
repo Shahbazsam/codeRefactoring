@@ -16,17 +16,16 @@ open class ToDoViewModel @Inject constructor(
     private val repository: ToDoRepository
 ) : ViewModel() {
 
-    private val _todos = MutableStateFlow<List<ToDo>>(emptyList())  // 🔴 Public Mutable Field
+    private val _todos = MutableStateFlow<List<ToDo>>(emptyList())
     val todos = _todos.asStateFlow()
 
-    open fun refreshOrLoad(forceRefresh: Boolean, showToast: Boolean) {
+    open fun refreshOrLoad(forceRefresh: Boolean) {
         if (!forceRefresh) {
             loadTodos()
             return
         }
 
         sync()
-        if (showToast) println("Refreshed")
     }
 
     open fun loadTodos() {

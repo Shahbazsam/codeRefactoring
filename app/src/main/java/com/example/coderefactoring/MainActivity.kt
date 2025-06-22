@@ -53,7 +53,7 @@ fun ActionButtonsSection(viewModel: ToDoViewModel) {
         Text("Add")
     }
 
-    Button(onClick = { viewModel.refreshOrLoad(true, true) }) {
+    Button(onClick = { viewModel.refreshOrLoad(true, ) }) {
         Text("Sync")
     }
 }
