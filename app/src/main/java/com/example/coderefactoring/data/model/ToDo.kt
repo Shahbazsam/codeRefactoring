@@ -8,7 +8,7 @@ data class ToDo(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var title : String = "",
 
-    var done: Boolean = false ,
+    var isCompleted : Boolean = false ,
     var dueDate: String = "",
     var priority: Int = 0
 )
