@@ -37,14 +37,14 @@ open class ToDoViewModel @Inject constructor(
     }
 
     open fun addTodo(
-        dataString: String,
+        title : String,
         dueDate: String,
         priority: Int
     ) {
         viewModelScope.launch {
             repository.addTodo(
                 ToDo(
-                    dataString = dataString,
+                    title = title,
                     dueDate = dueDate,
                     priority = priority
                 )
