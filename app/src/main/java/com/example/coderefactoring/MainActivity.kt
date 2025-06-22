@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.coderefactoring.data.model.ToDo
 import com.example.coderefactoring.ui.ToDoViewModel
 import com.example.coderefactoring.ui.theme.CodeRefactoringTheme
 
@@ -27,24 +28,32 @@ class MainActivity : ComponentActivity() {
             CodeRefactoringTheme {
                 val viewModel = viewModel<ToDoViewModel>()
                 val todos by viewModel.todos.collectAsState()
-
-
                 Column {
-                    todos.filter { !it.isCompleted }.forEach {
-                        Text(text = it.title)
-                    }
-
-                    Button(onClick = {
-                        viewModel.addTodo("Wash dishes", "2025-06-01T12:00", 1)
-                    }) {
-                        Text("Add")
-                    }
-
-                    Button(onClick = { viewModel.refreshOrLoad(true, true) }) {
-                        Text("Sync")
-                    }
+                    ToDoListSection(todos)
+                    ActionButtonsSection(viewModel)
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun ToDoListSection(todos: List<ToDo>) {
+    todos.filter { !it.isCompleted }.forEach {
+        Text(text = it.title)
+    }
+}
+
+@Composable
+fun ActionButtonsSection(viewModel: ToDoViewModel) {
+    Button(onClick = {
+        viewModel.addTodo("Wash dishes", "2025-06-01T12:00", 1)
+    }) {
+        Text("Add")
+    }
+
+    Button(onClick = { viewModel.refreshOrLoad(true, true) }) {
+        Text("Sync")
     }
 }
