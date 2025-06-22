@@ -5,6 +5,7 @@ import com.example.coderefactoring.data.model.ToDo
 import com.example.coderefactoring.data.remote.ApiService
 import kotlinx.coroutines.flow.Flow
 
+
 class ToDoRepository(
     private val dao: ToDoDao,
     private val api: ApiService
@@ -13,12 +14,8 @@ class ToDoRepository(
 
     suspend fun addTodo(todo: ToDo) = dao.insert(todo)
 
-    suspend fun syncTodos(forceUpdate: Boolean) {
-        if (forceUpdate) {
-            val remote = api.getRemoteTodos()
-            for (r in remote) {
-                dao.insert(r)
-            }
-        }
+    suspend fun syncAndRefresh() {
+        val remote = api.getRemoteTodos()
+        dao.insertAll(remote)
     }
 }
