@@ -2,6 +2,7 @@ package com.example.coderefactoring.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coderefactoring.data.model.Priority
 import com.example.coderefactoring.data.model.ToDo
 import com.example.coderefactoring.repository.ToDoRepository
 
@@ -9,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,8 +42,8 @@ open class ToDoViewModel @Inject constructor(
 
     open fun addTodo(
         title : String,
-        dueDate: String,
-        priority: Int
+        dueDate: LocalDate,
+        priority: Priority
     ) {
         viewModelScope.launch {
             repository.addTodo(

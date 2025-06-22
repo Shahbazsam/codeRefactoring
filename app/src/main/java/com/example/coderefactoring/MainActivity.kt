@@ -9,9 +9,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.coderefactoring.data.model.Priority
 import com.example.coderefactoring.data.model.ToDo
 import com.example.coderefactoring.ui.ToDoViewModel
 import com.example.coderefactoring.ui.theme.CodeRefactoringTheme
+import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ fun ToDoListSection(todos: List<ToDo>) {
 @Composable
 fun ActionButtonsSection(viewModel: ToDoViewModel) {
     Button(onClick = {
-        viewModel.addTodo("Wash dishes", "2025-06-01T12:00", 1)
+        viewModel.addTodo("Wash dishes", LocalDate.of(2025, 6, 30), Priority.HIGH )
     }) {
         Text("Add")
     }
