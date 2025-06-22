@@ -28,12 +28,19 @@ object AppModule {
     fun provideDao(db: ToDoDatabase): ToDoDao = db.todoDao()
 
     @Provides
-    fun provideRetrofit(): ApiService =
+    fun provideBaseUrl(): String = "https://example.com/"
+
+    @Provides
+    fun provideRetrofit(baseUrl: String): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://example.com/") // hardcoded
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
+
 
     @Provides
     fun provideRepository(dao: ToDoDao, api: ApiService): ToDoRepository =
