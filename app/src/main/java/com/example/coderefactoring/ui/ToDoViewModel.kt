@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ToDoViewModel @Inject constructor(
+open class ToDoViewModel @Inject constructor(
     private val repository: ToDoRepository
 ) : ViewModel() {
 
     private val _todos = MutableStateFlow<List<ToDo>>(emptyList())  // 🔴 Public Mutable Field
     val todos = _todos.asStateFlow()
 
-    fun refreshOrLoad(forceRefresh: Boolean, showToast: Boolean) {
+    open fun refreshOrLoad(forceRefresh: Boolean, showToast: Boolean) {
         if (forceRefresh) {
             sync()
             if (showToast) println("Refreshed")
@@ -28,7 +28,7 @@ class ToDoViewModel @Inject constructor(
         }
     }
 
-    fun loadTodos() {
+    open fun loadTodos() {
         viewModelScope.launch {
             repository.getLocalTodos().collect {
                 _todos.value = it
@@ -36,7 +36,7 @@ class ToDoViewModel @Inject constructor(
         }
     }
 
-    fun addTodo(
+    open fun addTodo(
         dataString: String,
         dueDate: String,
         priority: Int
@@ -52,7 +52,7 @@ class ToDoViewModel @Inject constructor(
         }
     }
 
-    fun sync() {
+    open fun sync() {
         viewModelScope.launch {
             repository.syncTodos(true)
         }

@@ -78,4 +78,10 @@ dependencies {
     kapt("androidx.room:room-compiler:2.7.1")
     implementation("androidx.room:room-runtime:2.7.1")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // Unit Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
 }
