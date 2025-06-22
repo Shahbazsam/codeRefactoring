@@ -20,8 +20,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(app: Application): ToDoDatabase {
-        return Room.databaseBuilder(app, ToDoDatabase::class.java, "todo.db").build()
+    fun provideDatabase(application : Application): ToDoDatabase {
+        return Room.databaseBuilder(application, ToDoDatabase::class.java, "todo.db").build()
     }
 
     @Provides
