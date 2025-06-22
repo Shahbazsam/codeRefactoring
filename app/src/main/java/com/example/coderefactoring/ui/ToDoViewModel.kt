@@ -20,12 +20,13 @@ open class ToDoViewModel @Inject constructor(
     val todos = _todos.asStateFlow()
 
     open fun refreshOrLoad(forceRefresh: Boolean, showToast: Boolean) {
-        if (forceRefresh) {
-            sync()
-            if (showToast) println("Refreshed")
-        } else {
+        if (!forceRefresh) {
             loadTodos()
+            return
         }
+
+        sync()
+        if (showToast) println("Refreshed")
     }
 
     open fun loadTodos() {
