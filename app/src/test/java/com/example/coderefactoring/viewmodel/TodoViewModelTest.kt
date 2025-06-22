@@ -14,6 +14,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+
 @OptIn(ExperimentalCoroutinesApi::class)
 class ToDoViewModelTest {
 
@@ -55,4 +56,53 @@ class ToDoViewModelTest {
             )
         }
     }
+
+    @Test
+    fun `refreshOrLoad should call sync when forceRefresh is true`() = runTest {
+        // Arrange
+        var syncCalled = false
+        var loadCalled = false
+
+        val customViewModel = object : ToDoViewModel(repository) {
+            override fun sync() {
+                syncCalled = true
+            }
+
+            override fun loadTodos() {
+                loadCalled = true
+            }
+        }
+
+        // Act
+        customViewModel.refreshOrLoad(forceRefresh = true, showToast = false)
+
+        // Assert
+        assert(syncCalled) { "sync() should have been called" }
+        assert(!loadCalled) { "loadTodos() should NOT have been called" }
+    }
+
+    @Test
+    fun `refreshOrLoad should call loadTodos when forceRefresh is false`() = runTest {
+        // Arrange
+        var syncCalled = false
+        var loadCalled = false
+
+        val customViewModel = object : ToDoViewModel(repository) {
+            override fun sync() {
+                syncCalled = true
+            }
+
+            override fun loadTodos() {
+                loadCalled = true
+            }
+        }
+
+        // Act
+        customViewModel.refreshOrLoad(forceRefresh = false, showToast = false)
+
+        // Assert
+        assert(!syncCalled) { "sync() should NOT have been called" }
+        assert(loadCalled) { "loadTodos() should have been called" }
+    }
 }
+
