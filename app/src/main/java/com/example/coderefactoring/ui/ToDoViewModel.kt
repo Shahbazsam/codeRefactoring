@@ -2,6 +2,7 @@ package com.example.coderefactoring.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coderefactoring.data.model.NewToDo
 import com.example.coderefactoring.data.model.Priority
 import com.example.coderefactoring.data.model.ToDo
 import com.example.coderefactoring.repository.ToDoRepository
@@ -30,21 +31,18 @@ open class ToDoViewModel @Inject constructor(
         }
     }
 
-    open fun addTodo(
-        title: String,
-        dueDate: LocalDate,
-        priority: Priority
-    ) {
+    fun addTodo(newToDo: NewToDo) {
         viewModelScope.launch {
             repository.addTodo(
                 ToDo(
-                    title = title,
-                    dueDate = dueDate,
-                    priority = priority
+                    title = newToDo.title,
+                    dueDate = newToDo.dueDate,
+                    priority = newToDo.priority
                 )
             )
         }
     }
+
 
     open fun sync() {
         viewModelScope.launch {
