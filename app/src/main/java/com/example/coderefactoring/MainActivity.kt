@@ -25,21 +25,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CodeRefactoringTheme {
-                val abc = viewModel<ToDoViewModel>()
-                val listOfStuff by abc.todos.collectAsState()
+                val viewModel = viewModel<ToDoViewModel>()
+                val todos by viewModel.todos.collectAsState()
+
 
                 Column {
-                    listOfStuff.filter { it.done == false }.forEach {
-                        Text(text = it.dataString)
+                    todos.filter { !it.isCompleted }.forEach {
+                        Text(text = it.title)
                     }
 
                     Button(onClick = {
-                        abc.addTodo("Wash dishes", "2025-06-01T12:00", 1)
+                        viewModel.addTodo("Wash dishes", "2025-06-01T12:00", 1)
                     }) {
                         Text("Add")
                     }
 
-                    Button(onClick = { abc.refreshOrLoad(true, true) }) {
+                    Button(onClick = { viewModel.refreshOrLoad(true, true) }) {
                         Text("Sync")
                     }
                 }
