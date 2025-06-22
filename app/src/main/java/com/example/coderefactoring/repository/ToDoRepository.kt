@@ -26,6 +26,4 @@ class ToDoRepository(
             }
         }
     }
-
-    fun getAllTodosAgain(): Flow<List<ToDo>> = dao.getAll()
 }
