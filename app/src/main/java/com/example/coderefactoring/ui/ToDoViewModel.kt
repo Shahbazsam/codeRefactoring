@@ -27,6 +27,8 @@ open class ToDoViewModel @Inject constructor(
 
         sync()
     }
+    fun getPendingTodos(): List<ToDo> = _todos.value.filter { !it.isCompleted }
+
 
     open fun loadTodos() {
         viewModelScope.launch {

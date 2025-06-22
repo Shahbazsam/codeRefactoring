@@ -27,9 +27,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CodeRefactoringTheme {
                 val viewModel = viewModel<ToDoViewModel>()
-                val todos by viewModel.todos.collectAsState()
                 Column {
-                    ToDoListSection(todos)
+                    ToDoListSection(viewModel.getPendingTodos())
                     ActionButtonsSection(viewModel)
                 }
             }
